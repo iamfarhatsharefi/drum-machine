@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 const DrumPad = ({ sound, handleDisplay }) => {
   const playSound = () => {
@@ -8,6 +9,8 @@ const DrumPad = ({ sound, handleDisplay }) => {
       audio.play();
       handleDisplay(sound.sound);
     } else {
+      // Disable the no-console rule for this line
+      // eslint-disable-next-line no-console
       console.error(`Audio element with id ${sound.key.toUpperCase()} not found`);
     }
   };
@@ -19,14 +22,11 @@ const DrumPad = ({ sound, handleDisplay }) => {
   };
 
   useEffect(() => {
-    // Add event listener for keydown when the component mounts
     document.addEventListener('keydown', handleKeyPress);
-    
-    // Remove event listener when the component unmounts
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, []);
+  }, [handleKeyPress]);
 
   return (
     <button
@@ -34,12 +34,23 @@ const DrumPad = ({ sound, handleDisplay }) => {
       className="drum-pad col-4 btn btn-primary m-1 p-3"
       onClick={playSound}
       aria-label={sound.sound}
+      type="button"
     >
       {sound.key.toUpperCase()}
-      <audio className="clip" id={sound.key.toUpperCase()} src={sound.url}></audio>
+      {/* Self-closing <audio> tag with a disabled rule for captions */}
+      <audio className="clip" id={sound.key.toUpperCase()} src={sound.url} />
     </button>
   );
 };
 
-export default DrumPad;
+// Prop-types validation
+DrumPad.propTypes = {
+  sound: PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    sound: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+  }).isRequired,
+  handleDisplay: PropTypes.func.isRequired,
+};
 
+export default DrumPad;

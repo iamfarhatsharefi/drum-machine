@@ -5,28 +5,30 @@ const DrumPad = ({ sound, handleDisplay }) => {
   const playSound = () => {
     const audio = document.getElementById(sound.key.toUpperCase());
     if (audio) {
-      audio.currentTime = 0;
+      audio.currentTime = 0; // Reset the audio to allow repeated playback
       audio.play();
-      handleDisplay(sound.sound);
+      handleDisplay(sound.sound); // Update the display with the sound name
     } else {
-      // Disable the no-console rule for this line
       // eslint-disable-next-line no-console
       console.error(`Audio element with id ${sound.key.toUpperCase()} not found`);
     }
   };
 
-  const handleKeyPress = (event) => {
-    if (event.key.toUpperCase() === sound.key.toUpperCase()) {
-      playSound();
-    }
-  };
-
   useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key.toUpperCase() === sound.key.toUpperCase()) {
+        playSound(); // Play sound if the corresponding key is pressed
+      }
+    };
+
+    // Add event listener for keydown
     document.addEventListener('keydown', handleKeyPress);
+    
+    // Cleanup event listener when component unmounts or updates
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, [handleKeyPress]);
+  }, [sound.key]); // Reattach listener when `sound.key` changes
 
   return (
     <button
@@ -37,7 +39,7 @@ const DrumPad = ({ sound, handleDisplay }) => {
       type="button"
     >
       {sound.key.toUpperCase()}
-      {/* Self-closing <audio> tag with a disabled rule for captions */}
+      {/* Audio element with correct id and src */}
       <audio className="clip" id={sound.key.toUpperCase()} src={sound.url} />
     </button>
   );

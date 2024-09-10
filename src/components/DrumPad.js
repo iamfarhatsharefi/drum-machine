@@ -5,41 +5,41 @@ const DrumPad = ({ sound, handleDisplay }) => {
   const playSound = () => {
     const audio = document.getElementById(sound.key.toUpperCase());
     if (audio) {
-      audio.currentTime = 0; // Reset the audio to allow repeated playback
+      audio.currentTime = 0; // Reset the audio to the beginning
       audio.play();
-      handleDisplay(sound.sound); // Update the display with the sound name
+      handleDisplay(sound.sound); // Display the name of the sound
     } else {
       // eslint-disable-next-line no-console
       console.error(`Audio element with id ${sound.key.toUpperCase()} not found`);
     }
   };
 
-  useEffect(() => {
-    const handleKeyPress = (event) => {
-      if (event.key.toUpperCase() === sound.key.toUpperCase()) {
-        playSound(); // Play sound if the corresponding key is pressed
-      }
-    };
+  const handleKeyPress = (event) => {
+    if (event.key.toUpperCase() === sound.key.toUpperCase()) {
+      playSound(); // Play sound if the correct key is pressed
+    }
+  };
 
-    // Add event listener for keydown
-    document.addEventListener('keydown', handleKeyPress);
-    
-    // Cleanup event listener when component unmounts or updates
+  useEffect(() => {
+    // Attach the keydown event listener to the window object
+    window.addEventListener('keydown', handleKeyPress);
+
+    // Clean up by removing the event listener when the component unmounts or updates
     return () => {
-      document.removeEventListener('keydown', handleKeyPress);
+      window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [sound.key]); // Reattach listener when `sound.key` changes
+  }, [sound.key]); // Update listener when `sound.key` changes
 
   return (
     <button
       id={sound.sound}
       className="drum-pad col-4 btn btn-primary m-1 p-3"
-      onClick={playSound}
+      onClick={playSound} // Play sound on click
       aria-label={sound.sound}
       type="button"
     >
       {sound.key.toUpperCase()}
-      {/* Audio element with correct id and src */}
+      {/* Audio element with the correct id and src */}
       <audio className="clip" id={sound.key.toUpperCase()} src={sound.url} />
     </button>
   );

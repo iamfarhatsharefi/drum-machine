@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import DrumPad from './DrumPad';
-import './DrumMachine.js';
 
 const sounds = [
   { key: 'Q', sound: 'Heater 1', url: 'https://s3.amazonaws.com/freecodecamp/drums/Heater-1.mp3' },
@@ -33,6 +32,7 @@ const DrumMachine = () => {
       </div>
     </div>
   );
-}
+};
 
 export default DrumMachine;
+

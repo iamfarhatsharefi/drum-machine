@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 const DrumPad = ({ sound, handleDisplay }) => {
+  const audioRef = useRef(null);
+
   const playSound = () => {
-    const audio = document.getElementById(sound.key.toUpperCase());
-    if (audio) {
-      audio.currentTime = 0; // Reset the audio to the beginning
-      audio.play();
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0; // Reset the audio to the beginning
+      audioRef.current.play();
       handleDisplay(sound.sound); // Display the name of the sound
     } else {
       // eslint-disable-next-line no-console
-      console.error(`Audio element with id ${sound.key.toUpperCase()} not found`);
+      console.error(`Audio element for ${sound.key.toUpperCase()} not found`);
     }
   };
 
@@ -32,15 +33,20 @@ const DrumPad = ({ sound, handleDisplay }) => {
 
   return (
     <button
-      id={sound.sound}
+      id={sound.key.toUpperCase()}
       className="drum-pad col-4 btn btn-primary m-1 p-3"
       onClick={playSound} // Play sound on click
       aria-label={sound.sound}
       type="button"
     >
       {sound.key.toUpperCase()}
-      {/* Audio element with the correct id and src */}
-      <audio className="clip" id={sound.key.toUpperCase()} src={sound.url} />
+      {/* Audio element with the correct ref and id */}
+      <audio
+        className="clip"
+        id={sound.key.toUpperCase()} // Add the id attribute here
+        ref={audioRef}
+        src={sound.url}
+      />
     </button>
   );
 };

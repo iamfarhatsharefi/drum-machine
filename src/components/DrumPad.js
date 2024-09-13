@@ -5,16 +5,16 @@ const DrumPad = ({ sound, handleDisplay }) => {
   const playSound = () => {
     const audio = document.getElementById(sound.key);
     if (audio) {
-      // Ensure that the audio element is not currently paused
       if (audio.paused) {
         audio.currentTime = 0;
-        audio.play().catch(error => {
-          console.error('Error playing sound:', error);
+        audio.play().catch((error) => {
+          // Error is silently handled, without logging to console
         });
         handleDisplay(sound.sound);
       }
     }
   };
+  
 
   const handleKeyPress = (event) => {
     if (event.key.toUpperCase() === sound.key) {

@@ -29,24 +29,14 @@ Navigate to the Project Directory:
 cd Drum Machine;
 
 
-## Usage 🎯
+## How to Run the Project
+1. Clone the repository to your local machine.
+2. Install the dependencies by running `npm install` or `yarn install`.
+3. Start the development server by running `npm start` or `yarn start`.
+4. Open your web browser and navigate to `http://localhost:3000` to view the drum machine.
 
-Step 1: Find and Access the Repository
-Navigate to the Repository:
-Open your web browser and go to GitHub.
-Use the search bar to find the repository you want to use, or navigate directly to the repository's URL.
-Step 2: Clone the Repository 
-Copy the Repository URL: 
-
-On the repository's main page, click the green "Code" button.
-Copy the URL 
-Clone the Repository to Your Local Machine:
-
-
-Open your terminal or command prompt.
-Navigate to the directory where you want to clone the repository.
-Replace repository with the name of the cloned repository
-
+## Testing
+All the required user stories and tests have been successfully completed and passed.
 
 ## 🔥 Features Added:
 

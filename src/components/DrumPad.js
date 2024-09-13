@@ -20,7 +20,7 @@ const DrumPad = ({ sound, handleDisplay }) => {
     if (event.key.toUpperCase() === sound.key) {
       playSound();
     }
-  }, [sound.key]); // Include sound.key as dependency
+  }, [sound.key]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);

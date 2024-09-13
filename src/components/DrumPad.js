@@ -14,7 +14,7 @@ const DrumPad = ({ sound, handleDisplay }) => {
         handleDisplay(sound.sound);
       }
     }
-  }, [sound.key, handleDisplay]); // Memoizing based on sound.key and handleDisplay
+  }, [sound.key, sound.sound, handleDisplay]); // Add sound.sound to dependencies
 
   // Memoize handleKeyPress and include playSound and sound.key as dependencies
   const handleKeyPress = useCallback((event) => {

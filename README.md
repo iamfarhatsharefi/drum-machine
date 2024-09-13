@@ -7,10 +7,10 @@ The Dynamic Drum Machine is a fully interactive and responsive web application b
 ## Demo 📸
 
 
-![Demo](./assets/previewer.PNG)
-![FreeCodeCamp](./assets/markfreecodecamp.PNG)
+![Demo](./assests/drumphoto.PNG)
+![FreeCodeCamp](./assests/drumfreecodecamp.PNG)
 <br>
- [Live-link](https://luminous-muffin-3f93df.netlify.app/ )
+ [Live-link](https://darling-madeleine-3b4c04.netlify.app/ )
 
 
 ## Technologies Used 🛠️
@@ -23,7 +23,7 @@ The Dynamic Drum Machine is a fully interactive and responsive web application b
 ## Installation 💻
 
 Installation and Setup Instructions:
-Clone the Repository:
+Clone the Repository:git@github.com:iamfarhatsharefi/drum-machine.git 
 
 Navigate to the Project Directory:
 cd Drum Machine;

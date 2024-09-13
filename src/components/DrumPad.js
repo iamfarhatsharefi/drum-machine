@@ -15,7 +15,7 @@ const DrumPad = ({ sound, handleDisplay }) => {
     }
   };
 
-  // Use useCallback to memoize handleKeyPress
+  
   const handleKeyPress = useCallback((event) => {
     if (event.key.toUpperCase() === sound.key) {
       playSound();

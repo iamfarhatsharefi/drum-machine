@@ -5,9 +5,14 @@ const DrumPad = ({ sound, handleDisplay }) => {
   const playSound = () => {
     const audio = document.getElementById(sound.key);
     if (audio) {
-      audio.currentTime = 0;
-      audio.play();
-      handleDisplay(sound.sound); // Display the sound name
+      // Ensure that the audio element is not currently paused
+      if (audio.paused) {
+        audio.currentTime = 0;
+        audio.play().catch(error => {
+          console.error('Error playing sound:', error);
+        });
+        handleDisplay(sound.sound);
+      }
     }
   };
 
@@ -19,15 +24,20 @@ const DrumPad = ({ sound, handleDisplay }) => {
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
+
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [handleKeyPress]); // Add handleKeyPress to the dependency array
+  }, [sound.key, handleDisplay]);
 
   return (
-    <button id={sound.sound} className="drum-pad" onClick={playSound} type="button">
+    <button
+      id={sound.sound}
+      className="drum-pad"
+      onClick={playSound}
+    >
       {sound.key}
-      <audio className="clip" id={sound.key} src={sound.url} aria-label={`Sound for ${sound.sound}`} />
+      <audio className="clip" id={sound.key} src={sound.url} />
     </button>
   );
 };

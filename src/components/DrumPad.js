@@ -22,12 +22,12 @@ const DrumPad = ({ sound, handleDisplay }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, []); // Empty array ensures this runs once
+  }, [handleKeyPress]); // Add handleKeyPress to the dependency array
 
   return (
-    <button id={sound.sound} className="drum-pad" onClick={playSound}>
+    <button id={sound.sound} className="drum-pad" onClick={playSound} type="button">
       {sound.key}
-      <audio className="clip" id={sound.key} src={sound.url} />
+      <audio className="clip" id={sound.key} src={sound.url} aria-label={`Sound for ${sound.sound}`} />
     </button>
   );
 };

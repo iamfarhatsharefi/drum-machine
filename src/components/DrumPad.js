@@ -32,12 +32,18 @@ const DrumPad = ({ sound, handleDisplay }) => {
 
   return (
     <button
+      type="button" // Explicit type attribute to prevent lint error
       id={sound.sound}
       className="drum-pad"
       onClick={playSound}
     >
       {sound.key}
-      <audio className="clip" id={sound.key} src={sound.url} />
+      <audio
+        className="clip"
+        id={sound.key}
+        src={sound.url}
+        aria-label={`Sound for ${sound.key}`} // Add aria-label for better accessibility
+      />
     </button>
   );
 };

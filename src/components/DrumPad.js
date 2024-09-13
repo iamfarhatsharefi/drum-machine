@@ -7,14 +7,13 @@ const DrumPad = ({ sound, handleDisplay }) => {
     if (audio) {
       if (audio.paused) {
         audio.currentTime = 0;
-        audio.play().catch((error) => {
+        audio.play().catch(() => {
           // Error is silently handled, without logging to console
         });
         handleDisplay(sound.sound);
       }
     }
   };
-  
 
   const handleKeyPress = (event) => {
     if (event.key.toUpperCase() === sound.key) {

@@ -1,8 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-const DrumPad = ({ sound, handleDisplay }) => {
-  // Memoize playSound to prevent it from changing on every render
+function DrumPad({ sound, handleDisplay }) {
   const playSound = useCallback(() => {
     const audio = document.getElementById(sound.key);
     if (audio) {
@@ -14,9 +13,8 @@ const DrumPad = ({ sound, handleDisplay }) => {
         handleDisplay(sound.sound);
       }
     }
-  }, [sound.key, sound.sound, handleDisplay]); // Add sound.sound to dependencies
+  }, [sound.key, sound.sound, handleDisplay]);
 
-  // Memoize handleKeyPress and include playSound and sound.key as dependencies
   const handleKeyPress = useCallback((event) => {
     if (event.key.toUpperCase() === sound.key) {
       playSound();
@@ -28,7 +26,7 @@ const DrumPad = ({ sound, handleDisplay }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [handleKeyPress]); // Include handleKeyPress as dependency
+  }, [handleKeyPress]);
 
   return (
     <button
@@ -38,15 +36,16 @@ const DrumPad = ({ sound, handleDisplay }) => {
       onClick={playSound}
     >
       {sound.key}
+      {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <audio
         className="clip"
         id={sound.key}
         src={sound.url}
-        title={`Sound for ${sound.key}`} // Add title attribute for better accessibility
+        aria-label={`Sound for ${sound.key}`}
       />
     </button>
   );
-};
+}
 
 DrumPad.propTypes = {
   sound: PropTypes.shape({

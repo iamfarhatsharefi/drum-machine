@@ -42,7 +42,7 @@ const DrumPad = ({ sound, handleDisplay }) => {
         className="clip"
         id={sound.key}
         src={sound.url}
-        aria-label={`Sound for ${sound.key}`} // Add aria-label for better accessibility
+        title={`Sound for ${sound.key}`} // Add title attribute for better accessibility
       />
     </button>
   );

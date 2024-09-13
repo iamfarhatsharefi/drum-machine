@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 const DrumPad = ({ sound, handleDisplay }) => {
@@ -15,11 +15,12 @@ const DrumPad = ({ sound, handleDisplay }) => {
     }
   };
 
-  const handleKeyPress = (event) => {
+  // Use useCallback to memoize handleKeyPress
+  const handleKeyPress = useCallback((event) => {
     if (event.key.toUpperCase() === sound.key) {
       playSound();
     }
-  };
+  }, [sound.key]); // Include sound.key as dependency
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyPress);
@@ -27,7 +28,7 @@ const DrumPad = ({ sound, handleDisplay }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
     };
-  }, [sound.key, handleDisplay]);
+  }, [handleKeyPress]); // Include handleKeyPress as dependency
 
   return (
     <button
